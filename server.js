@@ -8,11 +8,11 @@ import userRouter from "./routes/userRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import uploadRouter from "./routes/uploadRoutes.js";
 
-dotenv.config();
 
 import cors from 'cors';
 const app = express();
 app.use(cors()); 
+dotenv.config();
 
 mongoose
   .connect("mongodb+srv://amazona:amazona@cluster0.zovzr.mongodb.net/amazona?retryWrites=true&w=majority ")
@@ -22,9 +22,6 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
-
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
