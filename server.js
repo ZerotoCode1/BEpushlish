@@ -10,6 +10,10 @@ import uploadRouter from "./routes/uploadRoutes.js";
 
 dotenv.config();
 
+import cors from 'cors';
+const app = express();
+app.use(cors()); 
+
 mongoose
   .connect("mongodb+srv://amazona:amazona@cluster0.zovzr.mongodb.net/amazona?retryWrites=true&w=majority ")
   .then(() => {
@@ -19,7 +23,7 @@ mongoose
     console.log(err.message);
   });
 
-const app = express();
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
