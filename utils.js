@@ -57,7 +57,7 @@ export const mailgun = () =>
 export const payOrderEmailTemplate = (order) => {
   return `<h1>Cảm ơn bạn đã mua sắm tại của hàng chúng tôi</h1>
   <p>
-  Xin chào${order.user.name},</p>
+  Xin chào: ${order.user.name},</p>
   <p>Chúng tôi đã xử lý xong đơn hàng của bạn.</p>
   <h2>[Order ${order._id}] (${order.createdAt.toString().substring(0, 10)})</h2>
   <table>

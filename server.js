@@ -29,7 +29,7 @@ app.get("/api/keys/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || "sb");
 });
 app.get("/api/keys/google", (req, res) => {
-  res.send({ key: process.env.GOOGLE_API_KEY || "" });
+  res.send({ key: "AIzaSyDNI_ZWPqvdS6r6gPVO50I4TlYkfkZdXh8"|| "" });
 });
 
 app.use("/api/upload", uploadRouter);
