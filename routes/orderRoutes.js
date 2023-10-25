@@ -3,7 +3,8 @@ import expressAsyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
 import User from '../models/userModel.js';
 import Product from '../models/productModel.js';
-import { isAuth, isAdmin, mailgun, payOrderEmailTemplate } from '../utils.js';
+import nodemail from "nodemailer"
+import { isAuth, isAdmin, mailgun, payOrderEmailTemplate, payOrderEmailAdminTemplate } from '../utils.js';
 
 const orderRouter = express.Router();
 
@@ -138,24 +139,68 @@ orderRouter.put(
       };
 
       const updatedOrder = await order.save();
-      mailgun()
-        .messages()
-        .send(
-          {
-            from: 'Amazona <amazona@mg.yourdomain.com>',
-            to: `${order.user.name} <${order.user.email}>`,
-            subject: `New order ${order._id}`,
-            html: payOrderEmailTemplate(order),
-          },
-          (error, body) => {
-            if (error) {
-              console.log(error);
-            } else {
-              console.log(body);
-            }
-          }
-        );
-
+      // mailgun()
+      //   .messages()
+      //   .send(
+      //     {
+      //       from: 'Amazona <quang11102002f@gmail.com>',
+      //      to: `${order.user.name} <${order.user.email}>`,
+      //       subject: `New order ${order._id}`,
+      //       html: payOrderEmailTemplate(order),
+      //     },
+      //     (error, body) => {
+      //       if (error) {
+      //         console.log(error);
+      //       } else {
+      //         console.log(body);
+      //       }
+      //     }
+      //   );
+      const transporter = nodemail.createTransport({
+        service: 'Gmail', // Loại dịch vụ email (ví dụ: Gmail, Yahoo, Outlook)
+        auth: {
+          user: 'quang11102002f@gmail.com', // Địa chỉ email của bạn
+          pass: 'lbow aofr sxur noeq' // Mật khẩu email của bạn
+        }
+      });
+      
+     
+      const mailOptions = {
+        from: 'quang11102002f@gmail.com', 
+        to: `${order.user.name} <${order.user.email}>`, 
+        subject: `Sản phẩm order mới ${order._id}`, 
+        html:payOrderEmailTemplate(order)
+      };
+          
+      const mailOptions1 = {
+        from: 'quang11102002f@gmail.com', 
+        to: 'quang11102002h@gmail.com', 
+        subject: `Sản phẩm order mới ${order._id}`, 
+        html:payOrderEmailAdminTemplate(order)
+      };
+      transporter.sendMail(mailOptions1, (error, info) => {
+        if (error) {
+          console.log('Error:', error);
+        } else {
+          console.log('Email sent:', info.response);
+          
+        }
+      });
+      
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log('Error:', error);
+        } else {
+          console.log('Email sent:', info.response);
+          
+        }
+      });
+      
+      
+      
+      
+      
+      
       res.send({ message: 'Order Paid', order: updatedOrder });
     } else {
       res.status(404).send({ message: 'Order Not Found' });
