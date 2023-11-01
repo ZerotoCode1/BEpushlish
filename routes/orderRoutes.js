@@ -35,12 +35,12 @@ orderRouter.post(
       user: req.user._id,
     });
 
-    req.body.orderItems.map( async(data)=>{
-          const product = Product.findById(data._id)
-          if(product){
-            product.countInStock-= data.quantity
-            product.save()
-          }
+    req.body.orderItems.map(async  (data)=>{
+      const product = await  Product.findById(data._id);
+    if(product){
+      product.countInStock-=data.quantity
+      product.save()
+    }
     })
 
     const order = await newOrder.save();
