@@ -26,6 +26,7 @@ productRouter.post(
       rating: 0,
       numReviews: 0,
       description: 'sample description',
+      vdeo:"https://yody-prd-media.s3.ap-southeast-1.amazonaws.com/videos/website/ATN/ATN6034.mp4"
     });
     const product = await newProduct.save();
     res.send({ message: 'Product Created', product });
